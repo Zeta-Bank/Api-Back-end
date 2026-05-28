@@ -1,6 +1,8 @@
 package BL3.BackEnd.dao;
 
-public interface User {
+import BL3.BackEnd.entity.User;
+
+public interface UserDAO {
 
     // Create
 
