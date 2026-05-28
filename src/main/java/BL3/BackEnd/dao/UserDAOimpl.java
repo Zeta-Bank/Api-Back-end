@@ -18,11 +18,9 @@ public class UserDAOimpl implements UserDAO {
     @Autowired
     public UserDAOimpl(EntityManager entityManager){this.entityManager = entityManager;}
 
-
     @Override
-    @Transactional
-    public void create(@RequestBody User user) {
-
+    public void save(@RequestBody User user) {
+        entityManager.merge(user);
     }
 
     @Override
@@ -31,14 +29,8 @@ public class UserDAOimpl implements UserDAO {
     }
 
     @Override
-    @Transactional
-    public int update(User user) {
-        return 0;
-    }
-
-    @Override
-    @Transactional
-    public boolean delete(int id) {
-        return false;
+    public void delete(int id) {
+        User user = entityManager.find(User.class, id);
+        entityManager.remove(user);
     }
 }
