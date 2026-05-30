@@ -5,8 +5,10 @@ import BL3.BackEnd.entity.User;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService{
 
     UserDAOimpl userDAOimpl;
 
@@ -15,16 +17,21 @@ public class UserServiceImpl {
     }
 
     @Transactional
-    public void save(User user){
-        userDAOimpl.save(user);
+    public User save(User user){
+        return userDAOimpl.save(user);
     }
 
 
     public User get(int id){
-        return userDAOimpl.get(id);
+        return userDAOimpl.getById(id);
     }
 
-    // @Transactional
+    @Override
+    public List<User> getAll() {
+        return userDAOimpl.getAll();
+    }
+
+    @Transactional
     public void delete(int id){
         userDAOimpl.delete(id);
     }

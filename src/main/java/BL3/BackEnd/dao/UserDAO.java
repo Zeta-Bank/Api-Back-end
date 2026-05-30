@@ -2,15 +2,18 @@ package BL3.BackEnd.dao;
 
 import BL3.BackEnd.entity.User;
 
+import java.util.List;
+
 public interface UserDAO {
 
     // Create
     // Update
-    void save(User user);
+    User save(User user);
 
     // Read
 
-    User get(int id);
+    User getById(int id);
+    List<User> getAll();
 
     // Delete
 

@@ -4,11 +4,13 @@ package BL3.BackEnd.controller;
 import BL3.BackEnd.Service.UserServiceImpl;
 import BL3.BackEnd.dao.UserDAOimpl;
 import BL3.BackEnd.entity.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@RequestMapping
+import java.util.List;
+
+
+@RequestMapping("users")
+@RestController
 public class UserController {
 
     UserServiceImpl userService;
@@ -17,9 +19,31 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("{idUsuario}")
-    public User getUser(@PathVariable int idUsuario){
-       User user = userService.get(idUsuario);
+    @PostMapping
+    public void createUser(@RequestBody User user){
+        user.setId(0);
+        userService.save(user);
     }
+
+    @GetMapping("{idUser}")
+    public User getUser(@PathVariable int idUser){
+       return userService.get(idUser);
+    }
+
+    @GetMapping
+    public List<User> getAllUser(){
+        return userService.getAll();
+    }
+
+    @PutMapping
+    public User updateUser(@RequestBody User user){
+        return userService.save(user);
+    }
+
+    @DeleteMapping
+    void deleteUser(@PathVariable int idUser){
+        userService.delete(idUser);
+    }
+
 
 }

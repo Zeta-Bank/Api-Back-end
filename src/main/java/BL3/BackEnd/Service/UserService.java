@@ -2,17 +2,19 @@ package BL3.BackEnd.Service;
 
 import BL3.BackEnd.entity.User;
 
+import java.util.List;
+
 public interface UserService {
     // Create
     // Update
-    void save(User user);
+    User save(User user);
 
     // Read
-
     User get(int id);
 
-    // Delete
+    List<User> getAll();
 
+    // Delete
     void delete(int id);
 
 }
