@@ -1,8 +1,7 @@
 package BL3.BackEnd.controller;
 
 
-import BL3.BackEnd.Service.UserServiceImpl;
-import BL3.BackEnd.dao.UserDAOimpl;
+import BL3.BackEnd.service.UserServiceImpl;
 import BL3.BackEnd.entity.User;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,8 +40,8 @@ public class UserController {
     }
 
     @DeleteMapping
-    void deleteUser(@PathVariable int idUser){
-        userService.delete(idUser);
+    void deleteUser(@PathVariable int userId){
+        userService.delete(userService.get(userId));
     }
 
 

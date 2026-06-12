@@ -1,6 +1,6 @@
-package BL3.BackEnd.Service;
+package BL3.BackEnd.service;
 
-import BL3.BackEnd.dao.UserDAOimpl;
+import BL3.BackEnd.repository.user.UserDAOimpl;
 import BL3.BackEnd.entity.User;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -28,12 +28,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> getAll() {
-        return userDAOimpl.getAll();
+        return userDAOimpl.findAll();
     }
 
     @Transactional
-    public void delete(int id){
-        userDAOimpl.delete(id);
+    public void delete(User user){
+        userDAOimpl.delete(user);
     }
 
 }

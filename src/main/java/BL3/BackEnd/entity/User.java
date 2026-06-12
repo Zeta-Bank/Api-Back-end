@@ -8,6 +8,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @Column(name = "first_name")
@@ -23,7 +24,7 @@ public class User {
     private String password;
 
     //Double????? pesquisar depois
-    @Column(name = "moneyAmount")
+    @Column(name = "money_amount")
     private double moneyAmount;
 
 
