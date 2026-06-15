@@ -1,0 +1,15 @@
+package BL3.BackEnd.pix;
+
+import BL3.BackEnd.user.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
+public interface PixRepository extends JpaRepository<Pix, Integer> {
+    @Query("SELECT p FROM Pix p WHERE p.user = :user")
+    List<Pix> findAllKeys(@Param("user") User user);
+
+
+}

@@ -1,8 +1,6 @@
-package BL3.BackEnd.controller;
+package BL3.BackEnd.user;
 
 
-import BL3.BackEnd.service.UserServiceImpl;
-import BL3.BackEnd.entity.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,5 +1,7 @@
-package BL3.BackEnd.entity;
+package BL3.BackEnd.transferencia;
 
+import BL3.BackEnd.user.User;
+import BL3.BackEnd.pix.Pix;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

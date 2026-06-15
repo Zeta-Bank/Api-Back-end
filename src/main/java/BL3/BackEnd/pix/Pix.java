@@ -1,7 +1,7 @@
-package BL3.BackEnd.entity;
+package BL3.BackEnd.pix;
 
+import BL3.BackEnd.user.User;
 import jakarta.persistence.*;
-import org.hibernate.annotations.CollectionIdMutability;
 
 @Entity
 @Table(name = "pix_key_table")

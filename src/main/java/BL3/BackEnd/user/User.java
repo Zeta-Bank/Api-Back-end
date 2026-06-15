@@ -1,5 +1,7 @@
-package BL3.BackEnd.entity;
+package BL3.BackEnd.user;
 
+import BL3.BackEnd.pix.Pix;
+import BL3.BackEnd.transferencia.Transferencia;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -34,7 +36,6 @@ public class User {
 
     @OneToMany(mappedBy = "idRemetente")
     private List<Transferencia> remetenteTransferencia;
-
 
     @OneToMany(mappedBy = "idDestinatario")
     private List<Transferencia> destinatarioTransferencia;

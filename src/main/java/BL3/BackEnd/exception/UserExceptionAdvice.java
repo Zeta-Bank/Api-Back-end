@@ -1,4 +1,4 @@
-package BL3.BackEnd.Advice;
+package BL3.BackEnd.exception;
 
 import BL3.BackEnd.exception.userException.UserAlreadyExistsException;
 import BL3.BackEnd.exception.userException.UserExceptionResponse;
