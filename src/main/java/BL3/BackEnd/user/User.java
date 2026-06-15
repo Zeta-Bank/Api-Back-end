@@ -17,7 +17,7 @@ public class User {
     private int id;
 
     @Column(name = "first_name")
-    private String FirstName;
+    private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
@@ -44,7 +44,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "FirstName='" + FirstName + '\'' +
+                "FirstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
@@ -61,11 +61,11 @@ public class User {
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        firstName = firstName;
     }
 
     public String getLastName() {
