@@ -2,6 +2,9 @@ package BL3.BackEnd.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @Entity
 @Table(name = "User")
 public class User {
@@ -23,10 +26,18 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    //Double????? pesquisar depois
     @Column(name = "money_amount")
-    private double moneyAmount;
+    private BigDecimal moneyAmount;
 
+    @OneToMany(mappedBy = "user")
+    private List<Pix> pixKeys;
+
+    @OneToMany(mappedBy = "idRemetente")
+    private List<Transferencia> remetenteTransferencia;
+
+
+    @OneToMany(mappedBy = "idDestinatario")
+    private List<Transferencia> destinatarioTransferencia;
 
 
     @Override
@@ -80,11 +91,11 @@ public class User {
         this.password = password;
     }
 
-    public double getMoneyAmount() {
+    public BigDecimal getMoneyAmount() {
         return moneyAmount;
     }
 
-    public void setMoneyAmount(double moneyAmount) {
+    public void setMoneyAmount(BigDecimal moneyAmount) {
         this.moneyAmount = moneyAmount;
     }
 }

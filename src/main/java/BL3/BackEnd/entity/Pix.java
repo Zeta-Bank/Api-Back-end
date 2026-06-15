@@ -11,8 +11,9 @@ public class Pix {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "id_user")
-    private int idUser;
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
 
     @Column(name = "key")
     private String key;
@@ -22,7 +23,7 @@ public class Pix {
     public String toString() {
         return "Pix{" +
                 "id=" + id +
-                ", idUser=" + idUser +
+                ", idUser=" + user +
                 ", key='" + key + '\'' +
                 '}';
     }
@@ -35,12 +36,12 @@ public class Pix {
         this.id = id;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public User getIdUser() {
+        return user;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setIdUser(User idUser) {
+        this.user = idUser;
     }
 
     public String getKey() {

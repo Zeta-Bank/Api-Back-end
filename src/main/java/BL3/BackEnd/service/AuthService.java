@@ -1,4 +1,4 @@
-package BL3.BackEnd.Service;
+package BL3.BackEnd.service;
 
 public class AuthService {
 }
