@@ -1,6 +1,6 @@
 package BL3.BackEnd.transferencia;
 
-import BL3.BackEnd.transferencia.dto.CreateTranferenciaDTO;
+import BL3.BackEnd.transferencia.dto.CreateTransferenciaDTO;
 import BL3.BackEnd.transferencia.dto.TransferenciaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +20,16 @@ public class TransferenciaController {
     }
 
     @GetMapping("{userId}")
-    public ResponseEntity getAllByUser( @PathVariable int userId){
+    public ResponseEntity getAllByUser(@PathVariable int userId){
         List<TransferenciaDTO> response = transferenciaService.getAllByUser(userId);
         return ResponseEntity.ok(response);
     }
 
 
     @PostMapping
-    public ResponseEntity createTranferencia(@RequestBody CreateTranferenciaDTO dto){
+    public ResponseEntity createTranferencia(@RequestBody CreateTransferenciaDTO dto){
+        transferenciaService.makeTransferencia(dto);
+
         return ResponseEntity.ok().build();
     }
 }

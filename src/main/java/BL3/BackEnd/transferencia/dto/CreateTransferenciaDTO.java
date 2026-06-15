@@ -2,9 +2,9 @@ package BL3.BackEnd.transferencia.dto;
 
 import java.math.BigDecimal;
 
-public record CreateTranferenciaDTO (
-        int idRemetente,
+public record CreateTransferenciaDTO(
+        Integer idRemetente,
         String chavePixDestinario,
-        BigDecimal amount
+        BigDecimal moneyAmount
 ) {
 }

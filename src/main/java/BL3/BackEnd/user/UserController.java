@@ -42,5 +42,4 @@ public class UserController {
         userService.delete(userService.get(userId));
     }
 
-
 }

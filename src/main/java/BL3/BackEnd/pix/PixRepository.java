@@ -6,10 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PixRepository extends JpaRepository<Pix, Integer> {
     @Query("SELECT p FROM Pix p WHERE p.user = :user")
     List<Pix> findAllKeys(@Param("user") User user);
 
-
+    @Query("SELECT p FROM Pix p WHERE p.key = :key")
+    Optional<Pix> findByPix(@Param("key") String key);
 }

@@ -80,6 +80,30 @@ public class User {
         return email;
     }
 
+    public List<Pix> getPixKeys() {
+        return pixKeys;
+    }
+
+    public void setPixKeys(List<Pix> pixKeys) {
+        this.pixKeys = pixKeys;
+    }
+
+    public List<Transferencia> getRemetenteTransferencia() {
+        return remetenteTransferencia;
+    }
+
+    public void setRemetenteTransferencia(List<Transferencia> remetenteTransferencia) {
+        this.remetenteTransferencia = remetenteTransferencia;
+    }
+
+    public List<Transferencia> getDestinatarioTransferencia() {
+        return destinatarioTransferencia;
+    }
+
+    public void setDestinatarioTransferencia(List<Transferencia> destinatarioTransferencia) {
+        this.destinatarioTransferencia = destinatarioTransferencia;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }

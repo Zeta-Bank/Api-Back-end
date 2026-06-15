@@ -1,11 +1,17 @@
 package BL3.BackEnd.transferencia;
 
+import BL3.BackEnd.exception.PixException.ChavePixNaoEncontradaException;
+import BL3.BackEnd.exception.transferenciaException.SaldoInsuficienteException;
+import BL3.BackEnd.exception.transferenciaException.UserHaventTranferenciasException;
 import BL3.BackEnd.exception.userException.UserNotExistsException;
+import BL3.BackEnd.pix.Pix;
+import BL3.BackEnd.pix.PixRepository;
+import BL3.BackEnd.transferencia.dto.CreateTransferenciaDTO;
 import BL3.BackEnd.transferencia.dto.TransferenciaDTO;
 import BL3.BackEnd.user.User;
 import BL3.BackEnd.user.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,13 +20,15 @@ import java.util.Optional;
 @Service
 public class TransferenciaService {
 
-    TranferenciaRepository tranferenciaRepository;
+    TranferenciaRepository transferenciaRepository;
     UserRepository userRepository;
+    PixRepository pixRepository;
 
     @Autowired
-    public TransferenciaService(TranferenciaRepository tranferenciaRepository, UserRepository userRepository) {
-        this.tranferenciaRepository = tranferenciaRepository;
+    public TransferenciaService(TranferenciaRepository transferenciaRepository, UserRepository userRepository, PixRepository pixRepository) {
+        this.transferenciaRepository = transferenciaRepository;
         this.userRepository = userRepository;
+        this.pixRepository = pixRepository;
     }
 
     public List<TransferenciaDTO> getAllByUser(int userId) {
@@ -30,9 +38,10 @@ public class TransferenciaService {
         User user = remetenteOptional.get();
 
 
-        // e se o usuário não tiver transferencias?
-        // criar exceção
-        List<Transferencia> allTransferencias = tranferenciaRepository.findAllByUser(user);
+        Optional<List<Transferencia>> allTransferenciasOptional = transferenciaRepository.findAllByUser(user);
+        if (allTransferenciasOptional.isEmpty()) throw new UserHaventTranferenciasException();
+
+        List<Transferencia> allTransferencias = allTransferenciasOptional.get();
 
         List<TransferenciaDTO> allTranferenciasResponse = allTransferencias.stream()
                 .map(t -> {
@@ -47,6 +56,36 @@ public class TransferenciaService {
                 .toList();
 
 
+
         return allTranferenciasResponse;
+    }
+
+    @Transactional
+    public void makeTransferencia(CreateTransferenciaDTO dto) {
+
+        User remetente = userRepository.findById(dto.idRemetente())
+                .orElseThrow(() -> new UserNotExistsException());
+
+        Pix pix = pixRepository.findByPix(dto.chavePixDestinario())
+                .orElseThrow(() -> new ChavePixNaoEncontradaException());
+
+        User destinatario = pix.getIdUser();
+
+        if(remetente.getMoneyAmount().compareTo(dto.moneyAmount()) < 0)
+            throw new SaldoInsuficienteException();
+
+        remetente.setMoneyAmount(remetente.getMoneyAmount().subtract(dto.moneyAmount()));
+        destinatario.setMoneyAmount(destinatario.getMoneyAmount().add(dto.moneyAmount()));
+
+        userRepository.save(remetente);
+        userRepository.save(destinatario);
+
+        Transferencia t = new Transferencia();
+        t.setIdRemetente(remetente);
+        t.setIdDestinatario(destinatario);
+        t.setIdKeyDestinatario(pix);
+        t.setMoneyAmount(dto.moneyAmount());
+
+        transferenciaRepository.save(t);
     }
 }
