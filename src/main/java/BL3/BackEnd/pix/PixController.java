@@ -1,10 +1,35 @@
 package BL3.BackEnd.pix;
 
-import org.springframework.web.bind.annotation.RestController;
+import BL3.BackEnd.pix.dto.CreateChavePix;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("pix")
 public class PixController {
 
+    PixService pixService;
 
+    @Autowired
+    public PixController(PixService pixService) {
+        this.pixService = pixService;
+    }
+
+    @PostMapping
+    public ResponseEntity createPix(@RequestBody CreateChavePix createChavePix){
+        pixService.createPix(createChavePix);
+        return ResponseEntity.ok().build();
+    }
+
+
+
+    @GetMapping("{idUser}")
+    public ResponseEntity getAllByUser(@PathVariable int idUser){
+        List<Pix> chaves = pixService.getAllKeys(idUser);
+        return ResponseEntity.ok(chaves);
+    }
 
 }

@@ -28,6 +28,8 @@ public class Pix {
                 '}';
     }
 
+
+
     public int getId() {
         return id;
     }
