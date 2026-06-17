@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/transferencia")
 public class TransferenciaController {
 
-    TransferenciaService transferenciaService;
+    private TransferenciaService transferenciaService;
 
     @Autowired
     public TransferenciaController(TransferenciaService transferenciaService) {

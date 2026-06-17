@@ -20,9 +20,9 @@ import java.util.Optional;
 @Service
 public class TransferenciaService {
 
-    TranferenciaRepository transferenciaRepository;
-    UserRepository userRepository;
-    PixRepository pixRepository;
+    private TranferenciaRepository transferenciaRepository;
+    private UserRepository userRepository;
+    private PixRepository pixRepository;
 
     @Autowired
     public TransferenciaService(TranferenciaRepository transferenciaRepository, UserRepository userRepository, PixRepository pixRepository) {

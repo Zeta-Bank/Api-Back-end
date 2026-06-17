@@ -1,6 +1,9 @@
 package BL3.BackEnd.user;
 
 
+import BL3.BackEnd.user.dto.UserCreationDto;
+import BL3.BackEnd.user.dto.UserUpdateDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,36 +13,32 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    UserServiceImpl userService;
+    private UserService userService;
 
-    public UserController(UserServiceImpl userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @PostMapping
-    public void createUser(@RequestBody User user){
-        user.setId(0);
-        userService.save(user);
+    public ResponseEntity createUser(@RequestBody UserCreationDto userDTO){
+        userService.createUser(userDTO);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("{idUser}")
-    public User getUser(@PathVariable int idUser){
-       return userService.get(idUser);
-    }
-
-    @GetMapping
-    public List<User> getAllUser(){
-        return userService.getAll();
+    public User getUserById(@PathVariable int idUser){
+       return userService.getUserById(idUser);
     }
 
     @PutMapping
-    public User updateUser(@RequestBody User user){
-        return userService.save(user);
+    public ResponseEntity updateUser(@RequestBody UserUpdateDto updateDto){
+        userService.updateUser(updateDto);
+        return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping
+    @DeleteMapping("{idUser}")
     void deleteUser(@PathVariable int userId){
-        userService.delete(userService.get(userId));
+        userService.delete(userId);
     }
 
 }

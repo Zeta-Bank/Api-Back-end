@@ -15,8 +15,8 @@ import java.util.UUID;
 @Service
 public class PixService {
 
-    PixRepository pixRepository;
-    UserRepository userRepository;
+    private PixRepository pixRepository;
+    private UserRepository userRepository;
 
     @Autowired
     public PixService(PixRepository pixRepository, UserRepository userRepository) {

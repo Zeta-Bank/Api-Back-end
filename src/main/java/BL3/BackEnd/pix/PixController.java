@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("pix")
 public class PixController {
 
-    PixService pixService;
+    private PixService pixService;
 
     @Autowired
     public PixController(PixService pixService) {

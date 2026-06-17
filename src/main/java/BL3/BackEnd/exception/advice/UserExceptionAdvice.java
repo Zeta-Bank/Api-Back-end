@@ -2,6 +2,7 @@ package BL3.BackEnd.exception.advice;
 
 import BL3.BackEnd.exception.ExceptionResponse;
 import BL3.BackEnd.exception.userException.UserAlreadyExistsException;
+import BL3.BackEnd.exception.userException.UserCreationError;
 import BL3.BackEnd.exception.userException.UserNotExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,4 +24,11 @@ public class UserExceptionAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
+    @ExceptionHandler(UserCreationError.class)
+    public ResponseEntity userCreationError(RuntimeException exception){
+        ExceptionResponse response = new ExceptionResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
 }
+
+
