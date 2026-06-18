@@ -3,14 +3,20 @@ package BL3.BackEnd.user;
 import BL3.BackEnd.exception.userException.UserCreationError;
 import BL3.BackEnd.exception.userException.UserNotExistsException;
 import BL3.BackEnd.user.dto.UserCreationDto;
+import BL3.BackEnd.user.dto.UserResponseDTO;
 import BL3.BackEnd.user.dto.UserUpdateDto;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 public class UserService {
 
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
     private UserRepository userRepository;
 
     @Autowired
@@ -19,15 +25,17 @@ public class UserService {
     }
 
     @Transactional
-    public void createUser(UserCreationDto userDTO){
+    public void createUser(UserCreationDto createDTO){
         try{
             User user = new User();
 
-            user.setFirstName(userDTO.fistName());
-            user.setLastName(userDTO.lastName());
-            user.setEmail(userDTO.email());
-            user.setPassword(userDTO.password());
+            user.setFirstName(createDTO.firstName());
+            user.setLastName(createDTO.lastName());
+            user.setEmail(createDTO.email());
+            user.setPassword(createDTO.password());
+            user.setCpf(createDTO.cpf());
             user.setId(0);
+            user.setMoneyAmount(BigDecimal.valueOf(0));
 
             userRepository.save(user);
         }catch (RuntimeException e){
@@ -43,18 +51,28 @@ public class UserService {
                     .orElseThrow(() -> new UserNotExistsException());;
 
 
-            user.setFirstName(updateDto.fistName());
+            user.setFirstName(updateDto.firstName());
             user.setLastName(updateDto.lastName());
             user.setEmail(updateDto.email());
+            user.setCpf(updateDto.cpf());
             user.setPassword(updateDto.password());
 
             userRepository.save(user);
     };
 
-    public User getUserById(int idUser){
+    public UserResponseDTO getUserById(int idUser){
         User userById = userRepository.findById(idUser)
                 .orElseThrow(() -> new UserNotExistsException());
-        return userById;
+
+        UserResponseDTO responseDTO = new UserResponseDTO(
+                userById.getId(),
+                userById.getFirstName(),
+                userById.getLastName(),
+                userById.getEmail(),
+                userById.getCpf()
+                );
+
+        return responseDTO;
     }
 
     @Transactional

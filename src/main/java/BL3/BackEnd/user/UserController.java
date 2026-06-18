@@ -2,6 +2,7 @@ package BL3.BackEnd.user;
 
 
 import BL3.BackEnd.user.dto.UserCreationDto;
+import BL3.BackEnd.user.dto.UserResponseDTO;
 import BL3.BackEnd.user.dto.UserUpdateDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,9 @@ public class UserController {
     }
 
     @GetMapping("{idUser}")
-    public User getUserById(@PathVariable int idUser){
-       return userService.getUserById(idUser);
+    public ResponseEntity getUserById(@PathVariable int idUser){
+        UserResponseDTO response = userService.getUserById(idUser);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping
@@ -37,8 +39,9 @@ public class UserController {
     }
 
     @DeleteMapping("{idUser}")
-    void deleteUser(@PathVariable int userId){
+    public ResponseEntity deleteUser(@PathVariable int userId){
         userService.delete(userId);
+        return ResponseEntity.ok().build();
     }
 
 }

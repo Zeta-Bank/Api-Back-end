@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user_table")
 public class User {
 
     @Id
@@ -27,6 +27,9 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "cpf")
+    private String cpf;
 
     @Column(name = "money_amount")
     private BigDecimal moneyAmount;
@@ -52,6 +55,14 @@ public class User {
                 '}';
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public int getId() {
         return id;
     }
@@ -65,7 +76,7 @@ public class User {
     }
 
     public void setFirstName(String firstName) {
-        firstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
