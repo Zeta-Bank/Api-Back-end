@@ -9,6 +9,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("pix")
+// isso aqui em baixo serve por ser um projeto local
+@CrossOrigin(origins = "*")
 public class PixController {
 
     private PixService pixService;
@@ -28,7 +30,7 @@ public class PixController {
 
     @GetMapping("{idUser}")
     public ResponseEntity getAllByUser(@PathVariable int idUser){
-        List<Pix> chaves = pixService.getAllKeys(idUser);
+        List<CreateChavePix> chaves = pixService.getAllKeys(idUser);
         return ResponseEntity.ok(chaves);
     }
 

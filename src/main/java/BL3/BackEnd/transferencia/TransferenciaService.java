@@ -66,7 +66,7 @@ public class TransferenciaService {
         User remetente = userRepository.findById(dto.idRemetente())
                 .orElseThrow(() -> new UserNotExistsException());
 
-        Pix pix = pixRepository.findByPix(dto.chavePixDestinario())
+        Pix pix = pixRepository.findByKeyPix(dto.chavePixDestinario())
                 .orElseThrow(() -> new ChavePixNaoEncontradaException());
 
         User destinatario = pix.getIdUser();

@@ -1,4 +1,5 @@
 package BL3.BackEnd.user.dto;
+
 import java.math.BigDecimal;
 
 public record UserResponseDTO(
@@ -6,6 +7,7 @@ public record UserResponseDTO(
         String firstName,
         String lastName,
         String email,
-        String cpf
+        String cpf,
+        BigDecimal moneyAmount
 ) {
 }

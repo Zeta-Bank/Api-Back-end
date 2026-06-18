@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Tranferências", description = "Operações de tranferências via pix.")
+@Tag(name = "Transferências", description = "Operações de tranferências via pix.")
 
 @RestController
 @RequestMapping("/transferencia")
+// isso aqui em baixo serve por ser um projeto local
+@CrossOrigin(origins = "*")
 public class TransferenciaController {
 
     private TransferenciaService transferenciaService;
@@ -26,6 +28,7 @@ public class TransferenciaController {
         this.transferenciaService = transferenciaService;
     }
 
+    @Operation(summary = "Retornar todo o historico de transferências de um usuário.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Retornar todas as transferências do usuário solicitado"),
             @ApiResponse(responseCode = "400", description = "Usuário não existe, não encontrado e/ou não possuí transferências")
@@ -42,7 +45,8 @@ public class TransferenciaController {
     @Operation(summary = "Realiza uma transferência via pix",
             description = "Debita do remetente e credita no destinatário")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "Transferência realizada sem problemas.")
+        @ApiResponse(responseCode = "201", description = "Transferência realizada sem problemas."),
+        @ApiResponse(responseCode = "400", description = "Erro ao fazer transferências, como saldo insuficiente por exemplo.")
     })
     @PostMapping
     public ResponseEntity createTranferencia(@RequestBody CreateTransferenciaDTO dto){

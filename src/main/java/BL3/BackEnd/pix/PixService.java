@@ -27,6 +27,8 @@ public class PixService {
     @Transactional
     public void createPix(CreateChavePix createChavePixDTO) {
 
+        System.out.println(createChavePixDTO);
+
         User user = userRepository.findById(createChavePixDTO.id())
                 .orElseThrow(() -> new UserNotExistsException());
 
@@ -36,7 +38,7 @@ public class PixService {
         default -> throw new IllegalStateException("Unexpected value: " + createChavePixDTO.tipo());
     };
 
-    if(pixRepository.findByPix(chave).isPresent()) throw new ChavePixJaExisteException();
+    if(pixRepository.findByKeyPix(chave).isPresent()) throw new ChavePixJaExisteException();
 
     Pix pix = new Pix();
     pix.setIdUser(user);
@@ -46,11 +48,18 @@ public class PixService {
     }
 
 
-    public List<Pix> getAllKeys(int idUser) {
+    public List<CreateChavePix> getAllKeys(int idUser) {
+        // 1. Busca o usuário ou lança exceção se não existir
         User user = userRepository.findById(idUser)
-                .orElseThrow(()-> new UserNotExistsException());
+                .orElseThrow(() -> new UserNotExistsException());
 
-        return pixRepository.findAllKeys(user);
+        // 2. Busca a lista de entidades Pix do banco
+        List<Pix> pixList = pixRepository.findAllKeys(user);
+
+        // 3. Aplica o Stream Map para converter Pix -> CreateChavePix
+        return pixList.stream()
+                .map(pix -> new CreateChavePix(pix.getId(), pix.getKey()))
+                .toList(); // Ou .collect(Collectors.toList()) se estiver em versões anteriores ao Java 16
     }
 
 }

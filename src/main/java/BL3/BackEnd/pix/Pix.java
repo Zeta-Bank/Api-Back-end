@@ -15,8 +15,8 @@ public class Pix {
     @JoinColumn(name = "id_user")
     private User user;
 
-    @Column(name = "key")
-    private String key;
+    @Column(name = "key_pix")
+    private String keyPix;
 
 
     @Override
@@ -24,7 +24,7 @@ public class Pix {
         return "Pix{" +
                 "id=" + id +
                 ", idUser=" + user +
-                ", key='" + key + '\'' +
+                ", key='" + keyPix + '\'' +
                 '}';
     }
 
@@ -47,10 +47,10 @@ public class Pix {
     }
 
     public String getKey() {
-        return key;
+        return keyPix;
     }
 
     public void setKey(String key) {
-        this.key = key;
+        this.keyPix = key;
     }
 }

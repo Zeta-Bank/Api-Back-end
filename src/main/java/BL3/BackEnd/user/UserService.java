@@ -1,5 +1,6 @@
 package BL3.BackEnd.user;
 
+import BL3.BackEnd.exception.userException.UserAlreadyExistsException;
 import BL3.BackEnd.exception.userException.UserCreationError;
 import BL3.BackEnd.exception.userException.UserNotExistsException;
 import BL3.BackEnd.user.dto.UserCreationDto;
@@ -26,16 +27,18 @@ public class UserService {
 
     @Transactional
     public void createUser(UserCreationDto createDTO){
+        if(userRepository.findByEmail(createDTO.email()).isPresent())
+            throw new UserAlreadyExistsException();
+
         try{
             User user = new User();
-
             user.setFirstName(createDTO.firstName());
             user.setLastName(createDTO.lastName());
             user.setEmail(createDTO.email());
             user.setPassword(createDTO.password());
             user.setCpf(createDTO.cpf());
             user.setId(0);
-            user.setMoneyAmount(BigDecimal.valueOf(0));
+            user.setMoneyAmount(BigDecimal.valueOf(1000));
 
             userRepository.save(user);
         }catch (RuntimeException e){
@@ -69,7 +72,8 @@ public class UserService {
                 userById.getFirstName(),
                 userById.getLastName(),
                 userById.getEmail(),
-                userById.getCpf()
+                userById.getCpf(),
+                userById.getMoneyAmount()
                 );
 
         return responseDTO;
@@ -83,4 +87,19 @@ public class UserService {
         userRepository.delete(userById);
     }
 
+    public UserResponseDTO getUserByEmail(String emailUser) {
+        User user = userRepository.findByEmail(emailUser)
+                .orElseThrow(() -> new UserNotExistsException());
+
+        UserResponseDTO responseDTO = new UserResponseDTO(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getCpf(),
+                user.getMoneyAmount()
+        );
+
+        return responseDTO;
+    }
 }
