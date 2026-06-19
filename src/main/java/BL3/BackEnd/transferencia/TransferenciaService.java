@@ -46,7 +46,7 @@ public class TransferenciaService {
         List<TransferenciaDTO> allTranferenciasResponse = allTransferencias.stream()
                 .map(t -> {
                     TransferenciaDTO dto = new TransferenciaDTO(
-                            user.getFirstName() + " " + user.getLastName(),
+                            t.getIdRemetente().getFirstName() + " " + t.getIdRemetente().getLastName(),
                             t.getIdDestinatario().getFirstName() + " " + t.getIdDestinatario().getLastName(),
                             t.getMoneyAmount()
                     );
