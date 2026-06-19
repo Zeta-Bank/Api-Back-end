@@ -7,10 +7,11 @@
 
 ## Índice
 
-- [Sobre o Projeto](#-sobre-o-projeto)
-- [Tecnologias](#-tecnologias)
-- [Configuração e Execução](#-configuração-e-execução)
-- [Documentação Swagger](#-documentação-swagger)
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Tecnologias](#tecnologias)
+- [Configuração e Execução](#configuração-e-execução)
+- [Documentação Swagger](#documentação-swagger)
+- [Modelo de Dados](#modelo-de-dados)
 
 ---
 
